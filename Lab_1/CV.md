@@ -1,9 +1,3 @@
----
-layout: pages
-title: "Curriculum Vitae"
-permalink: /Curriculum Vitae/
----
-
 # Curriculum Vitae
 
 ## 1. Name and surname
