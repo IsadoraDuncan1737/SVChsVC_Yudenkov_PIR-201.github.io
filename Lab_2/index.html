@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>CV</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+        <header class="header">
+            <figure class="header-image">
+                <img src="./images/avatar.jpg" class="header-image-item" alt="Something gone wrong:("/>
+            </figure>
+            <div class="header-content">
+                <div class="header-full-name">
+                    <h1>Yudenkov Maxim</h1>
+                </div>
+                <div class="header-speciality">
+                    <span class="speciality">Student</span>
+                </div>
+                <nav class="header-links">
+                    <span class="header-links-text">Contact me</span>
+                    <ul class="header-links-list">
+                        <li class="header-links-element">
+                            <span class="header-links-element-text">Phone:</span>
+                            <a class="header-links-element-link">+375336772262</a>
+                        </li>
+                        <li class="header-links-element">
+                            <span class="header-links-element-text">VK:</span>
+                            <a class="header-links-element-link" href="https://vk.com/bestctulhuever">@bestctulhuever</a>
+                        </li>
+                        <li class="header-links-element">
+                            <span class="header-links-element-text">Telegram:</span>
+                            <a class="header-links-element-link" href="https://t.me/IsadoraDuncan1737">@IsadoraDuncan1737</a>
+                        </li>
+                        <li class="header-links-element">
+                            <span class="header-links-element-text">Discord:</span>
+                            <a class="header-links-element-link">@IsadoraDuncan1737#6742</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main">
+            <section class="main-section">
+                <section class="main-section-subsection">
+                    <header class="main-section-subsection-header">
+                        <figure class="main-section-subsection-header-image">
+                            <img src="./images/Experience.png" class="main-section-subsection-header-image-item" alt="Ooops, something gone wrong"/>
+                        </figure>
+                        <h2>ABOUT ME</h2>
+                    </header>
+                    <div class="main-section-subsection-content">
+                        <p>I am a student of the Belarusian-Russian University, studying in the third year
+                        of the specialty "Software Engineering". I'm sociable, smart, patient and creative. 
+                        During my studies, I want to improve my programming skills and learn new programming 
+                        technologies. After graduation I want to get a job in some IT company to further 
+                        develop my skills in the field of programming.</p>
+                    </div>
+                </section>
+                <section class="main-section-subsection">
+                    <header class="main-section-subsection-header">
+                        <figure class="main-section-subsection-header-image">
+                            <img src="./images/Education.png" class="main-section-subsection-header-image-item" alt="Something gone wrong:("/>
+                        </figure>
+                        <h2>EDUCATION</h2>
+                    </header>
+                    <div class="main-section-subsection-content">
+                        <div class="education-section-institution">
+                            <span class="education-period">
+                                2020-Now
+                            </span>
+                            <span class="education-place">
+                                Belarusian-Russian University
+                            </span>
+                        </div>
+                        <div class="education-section-speciality">
+                            <span class="education-description">
+                                SOFTWARE ENGINEER
+                            </span>
+                        </div>
+                    </div>
+                </section>
+                <section class="main-section-subsection">
+                    <header class="main-section-subsection-header">
+                        <figure class="main-section-subsection-header-image">
+                            <img src="./images/CodeSamples.png" class="main-section-subsection-header-image-item" alt="Something gone wrong:("/>
+                        </figure>
+                        <h2>CODE SAMPLE</h2>
+                    </header>
+                    <div class="main-section-subsection-content">
+                        <pre>
+                            <code class="code-sample">
+export class AddFileMultipleComponent extends Component {
+    static displayName = AddFileMultipleComponent.name;
+                                
+    constructor(props) {
+        super(props);
+                                
+        this.state = {
+            uploadedFiles: [],
+            fileLimit: false,
+            maxFilesCount: 10,
+        }
+                                
+        this.handleFileEvent = this.handleFileEvent.bind(this);
+        this.handleUploadFiles = this.handleUploadFiles.bind(this);
+    }
+                                
+    handleUploadFiles(files) {
+        const uploaded = [...this.state.uploadedFiles];
+        let limitExceeded = false;
+        files.some((file) => {
+            if (uploaded.findIndex((f) => f.name === file.name) === -1) {
+                uploaded.push(file);
+                if (uploaded.length === this.state.maxFilesCount) {
+                    this.setState({ fileLimit: true });
+                }
+
+                if (uploaded.length > this.state.maxFilesCount) {
+                    alert(`You cannot upload more than ${this.state.maxFilesCount} files`);
+                    this.setState({ fileLimit: false });
+                    limitExceeded = true;
+                    return true;
+                }
+            }
+        });
+                                
+        if (!limitExceeded) {
+            this.setState({ uploadedFiles: uploaded });
+            this.props.handleChangeFiles(uploaded);
+        }
+    }
+                                
+    handleFileEvent(e) {
+        const chosenFiles = Array.prototype.slice.call(e.target.files);
+                                
+        this.handleUploadFiles(chosenFiles);
+    }
+                                
+    render() {
+        if (!this.props.isHidden) {
+            return (
+                &lt;div className="AddFileMultiple"&gt;         
+                    &lt;input id='fileUpload' type='file' multiple hidden={true}
+                        accept='image/png, image/jpeg, image/jpg'
+                        onChange={(e) => { this.handleFileEvent(e) }}
+                        disabled={this.state.fileLimit}
+                    /&gt;
+                                
+                    &lt;label htmlFor='fileUpload' &gt;
+                        &lt;a className={`btn btn-primary ${!this.state.fileLimit ? '' : 'disabled'} `}&gt;
+                            Choose files
+                        &lt;/a&gt;
+                    &lt;/label&gt;
+                &lt;/div&gt;
+            )
+        }
+    }
+}
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                <section class="main-section-subsection">
+                    <header class="main-section-subsection-header">
+                        <h2>SKILLS</h2>
+                    </header>
+                    <div class="main-section-subsection-content">
+                        <div class="skills-section">
+                            <div class="skill">
+                                <span class="skill-title">Language C#:</span>
+                                <span class="skill-text">Basics</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-title">Language JavaScript:</span>
+                                <span class="skill-text">Basics</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-title">Language Java:</span>
+                                <span class="skill-text">Basics</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-title">Frameworks:</span>
+                                <span class="skill-text">.NET, ASP.NET</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="main-section-subsection">
+                    <header class="main-section-subsection-header">
+                        <h2>ENGLISH LEVEL</h2>
+                    </header>
+                    <div class="main-section-subsection-content">
+                        <span class="english-level">A2 Elementary</span>
+                    </div>
+                </section>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footer-github">
+                <span class="footer-github-title">Github:</span>
+                <a class="footer-github-link" href="https://github.com/IsadoraDuncan1737/SVChsVC_Yudenkov_PIR-201.github.io">
+                    https://github.com/IsadoraDuncan1737/SVChsVC_Yudenkov_PIR-201.github.io
+                </a>
+            </div>
+            <div class="footer-year">
+                <span class="footer-year-text">2022</span>
+            </div>
+        </footer>
+    </div>
+  </body>
